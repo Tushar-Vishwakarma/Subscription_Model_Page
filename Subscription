@@ -1,0 +1,81 @@
+import React from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Check } from "lucide-react";
+import { motion } from "framer-motion";
+
+const plans = [
+  {
+    name: "Basic",
+    price: "Free",
+    features: ["Free for 30 days", "Access to core features", "Secure checkout"],
+    mostPopular: false,
+  },
+  {
+    name: "Pro",
+    price: "$29/mo",
+    features: ["Everything in Basic", "Advanced analytics", "Priority support"],
+    mostPopular: true,
+  },
+  {
+    name: "Enterprise",
+    price: "Contact us",
+    features: ["Custom solutions", "Dedicated account manager", "Enterprise-grade security"],
+    mostPopular: false,
+  },
+];
+
+export default function SubscriptionPage() {
+  return (
+    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto text-center mb-16">
+        <h1 className="text-4xl font-bold text-gray-900 mb-4">Choose Your Plan</h1>
+        <p className="text-lg text-gray-600">
+          Simple pricing. Transparent features. Built for scale and security.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        {plans.map((plan, idx) => (
+          <motion.div
+            key={idx}
+            whileHover={{ scale: 1.03 }}
+            className={
+              "transition-transform" +
+              (plan.mostPopular ? " border-2 border-blue-600 shadow-lg" : "")
+            }
+          >
+            <Card className="rounded-2xl p-6">
+              <CardContent>
+                <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+                  {plan.name}
+                </h2>
+                <p className="text-3xl font-bold text-gray-900 mb-6">
+                  {plan.price}
+                </p>
+                <ul className="space-y-3 text-left mb-6">
+                  {plan.features.map((feature, i) => (
+                    <li key={i} className="flex items-center text-gray-700">
+                      <Check className="w-5 h-5 text-green-600 mr-2" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+                <Button className="w-full" variant={plan.mostPopular ? "default" : "outline"}>
+                  {plan.mostPopular ? "Get Started" : "Select Plan"}
+                </Button>
+              </CardContent>
+            </Card>
+          </motion.div>
+        ))}
+      </div>
+
+      <div className="mt-16 text-center text-gray-500 text-sm">
+        <p>
+          All transactions are secured with end-to-end encryption. We adhere to
+          the highest standards of data protection and compliance.
+        </p>
+      </div>
+    </div>
+  );
+}
